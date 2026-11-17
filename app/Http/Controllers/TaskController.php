@@ -1,0 +1,61 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use App\Models\Task;
+
+class TaskController extends Controller
+{
+    public function index()
+    {
+        return view('tasks.index', [
+            'tasks' => auth()->user()->tasks()->latest()->get()
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+        ]);
+
+        $request->user()->tasks()->create($validated);
+
+        return redirect()->route('tasks.index')->with('success', 'Task added successfully');
+    }
+
+    public function toggle(Task $task)
+    {
+        Gate::authorize('update', $task);
+        $task->is_completed = !$task->is_completed;
+        $task->save();
+        return redirect()->route('tasks.index');
+    }
+
+    public function update(Request $request, Task $task)
+    {
+        Gate::authorize('update', $task);
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+        ]);
+
+        $task->update($validated);
+
+        return redirect()->route('tasks.index')->with('success', 'Task updated successfully');
+    }
+
+    public function edit(Task $task)
+    {
+        Gate::authorize('update', $task);
+        return view('tasks.edit', compact('task'));
+    }
+
+    public function destroy(Task $task)
+    {
+        Gate::authorize('delete', $task);
+        $task->delete();
+        return redirect()->route('tasks.index')->with('success', 'Task deleted successfully');
+    }
+}
