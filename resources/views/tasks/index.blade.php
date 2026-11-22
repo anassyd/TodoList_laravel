@@ -13,9 +13,11 @@
     <form action="{{ route('tasks.store') }}" method="POST" class="flex gap-2">
         @csrf
         <x-input name="title" placeholder="Enter task title" :value="old('title')" />
+        <x-input type="date" name="due_date" :value="old('due_date')" class="w-auto" />
         <x-button>Add Task</x-button>
     </form>
     <x-input-error name="title" />
+    <x-input-error name="due_date" />
 
     <ul class="mt-6 divide-y divide-zinc-200 rounded-lg border border-zinc-200">
         @forelse ($tasks as $task)

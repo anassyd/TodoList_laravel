@@ -45,6 +45,7 @@ class AuthController extends Controller
         $validated = $request->validate([
             'email' => 'required|string|email',
             'password' => 'required|string',
+            'due_date' => 'nullable|date|after_or_equal:today',
         ]);
 
         if (Auth::attempt($validated)) {

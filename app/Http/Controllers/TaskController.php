@@ -19,6 +19,8 @@ class TaskController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
+            'due_date' => 'nullable|date|after_or_equal:today',
+
         ]);
 
         $request->user()->tasks()->create($validated);
@@ -39,6 +41,7 @@ class TaskController extends Controller
         Gate::authorize('update', $task);
         $validated = $request->validate([
             'title' => 'required|string|max:255',
+            'due_date' => 'nullable|date|after_or_equal:today',
         ]);
 
         $task->update($validated);
