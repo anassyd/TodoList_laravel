@@ -18,9 +18,21 @@
     </form>
     <x-input-error name="title" />
     <x-input-error name="due_date" />
+    <div class="mt-6 flex gap-1">
+        <x-button size="sm" :variant="request('status') === 'active' ? 'default' : 'ghost'" :href="route('tasks.index', ['status' => 'active'])">
+            Active
+        </x-button>
+        <x-button size="sm" :variant="request('status') === 'completed' ? 'default' : 'ghost'" :href="route('tasks.index', ['status' => 'completed'])">
+            Completed
+        </x-button>
+        <x-button size="sm" :variant="request('status') ? 'ghost' : 'default'" ">
+                All
+        </x-button>
+    </div>
 
-    <ul class="mt-6 divide-y divide-zinc-200 rounded-lg border border-zinc-200">
-        @forelse ($tasks as $task)
+
+            <ul class="mt-6 divide-y divide-zinc-200 rounded-lg border border-zinc-200">
+                  @forelse ($tasks as $task)
             <li class="flex items-center gap-3 px-4 py-2.5">
                 <form action="{{ route('tasks.toggle', $task) }}" method="POST" class="flex">
                     @csrf
@@ -61,6 +73,6 @@
             </li>
         @empty
             <li class="px-4 py-10 text-center text-sm text-zinc-500">No tasks yet. Add your first one above.</li>
-        @endforelse
-    </ul>
-@endsection
+            @endforelse
+            </ul>
+        @endsection

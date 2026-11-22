@@ -8,10 +8,17 @@ use App\Models\Task;
 
 class TaskController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+
+        $tasks = $request->user()->tasks()
+            ->when($request->query('status') === 'active', fn ($query) => $query->active())
+            ->when($request->query('status') === 'completed', fn ($query) => $query->completed())
+            ->latest()
+            ->get();
+
         return view('tasks.index', [
-            'tasks' => auth()->user()->tasks()->latest()->get()
+            'tasks' => $tasks
         ]);
     }
 
