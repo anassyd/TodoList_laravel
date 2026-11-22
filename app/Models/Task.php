@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 
-#[Fillable(['title', 'is_completed'])]
+#[Fillable(['title', 'is_completed', 'due_date'])]
 class Task extends Model
 {
 
@@ -13,6 +13,7 @@ class Task extends Model
     {
         return [
             'is_completed' => 'boolean',
+            'due_date' => 'date',
         ];
     }
     public function user()
