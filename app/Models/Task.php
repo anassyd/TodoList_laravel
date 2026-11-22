@@ -39,4 +39,9 @@ class Task extends Model
     {
         $query->where('is_completed', true);
     }
+    #[Scope]
+    protected function search(Builder $query, string $term): void
+    {
+        $query->where('title', 'like', "%{$term}%");
+    }
 }

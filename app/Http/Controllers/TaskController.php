@@ -10,12 +10,10 @@ class TaskController extends Controller
 {
     public function index(Request $request)
     {
-        if (! $request->user()) {
-            return redirect()->route('login');
-        }
         $tasks = $request->user()->tasks()
-            ->when($request->query('status') === 'active', fn ($query) => $query->active())
-            ->when($request->query('status') === 'completed', fn ($query) => $query->completed())
+            ->when($request->query('status') === 'active', fn($query) => $query->active())
+            ->when($request->query('status') === 'completed', fn($query) => $query->completed())
+            ->when($request->query('search'), fn($query, $search) => $query->search($search))
             ->latest()
             ->get();
 
