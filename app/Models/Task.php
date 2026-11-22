@@ -20,4 +20,9 @@ class Task extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function isOverdue(): bool
+    {
+        return $this->due_date && $this->due_date->lt(today()) && !$this->is_completed;
+    }
 }

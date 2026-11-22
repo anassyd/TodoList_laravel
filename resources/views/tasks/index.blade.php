@@ -29,12 +29,25 @@
                         class="size-4 cursor-pointer accent-zinc-900" @checked($task->is_completed)>
                 </form>
 
-                <span @class([
-                    'flex-1 text-sm',
-                    'text-zinc-400 line-through' => $task->is_completed,
-                ])>
-                    {{ $task->title }}
-                </span>
+                <div class="min-w-0 flex-1">
+                    <span @class([
+                        'text-sm',
+                        'text-zinc-400 line-through' => $task->is_completed,
+                    ])>
+                        {{ $task->title }}
+                    </span>
+
+                    @if ($task->due_date)
+                        <p @class([
+                            'text-xs',
+                            'font-medium text-red-600' => $task->isOverdue(),
+                            'text-zinc-500' => !$task->isOverdue(),
+                        ])>
+                            {{ $task->due_date->format('d M Y') }}
+                            ({{ $task->due_date->diffForHumans() }})
+                        </p>
+                    @endif
+                </div>
 
                 <x-button variant="ghost" size="sm" :href="route('tasks.edit', $task)">Edit</x-button>
 
