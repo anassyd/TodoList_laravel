@@ -25,7 +25,7 @@
         <x-button size="sm" :variant="request('status') === 'completed' ? 'default' : 'ghost'" :href="route('tasks.index', ['status' => 'completed'])">
             Completed
         </x-button>
-        <x-button size="sm" :variant="request('status') ? 'ghost' : 'default'" ">
+        <x-button size="sm" :variant="request('status') ? 'ghost' : 'default'" :href="route('tasks.index')">
                 All
         </x-button>
     </div>
