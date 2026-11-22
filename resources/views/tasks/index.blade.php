@@ -5,13 +5,13 @@
 @section('content')
     <h1 class="text-2xl font-semibold tracking-tight">Tasks</h1>
     <p class="mt-1 mb-6 text-sm text-zinc-500">Manage your tasks</p>
-    <x-input-error name="search" />
+
 
     @if (session('success'))
         <x-alert class="mb-4">{{ session('success') }}</x-alert>
     @endif
 
-    <form action="{{ route('tasks.store') }}" method="POST" class="flex gap-2">
+    <form action="{{ route('tasks.store') }}" method="POST" class="flex gap-2 mt-7">
         @csrf
         <x-input name="title" placeholder="Enter task title" :value="old('title')" />
         <x-input type="date" name="due_date" :value="old('due_date')" class="w-auto" />
@@ -19,9 +19,8 @@
     </form>
     <x-input-error name="title" />
     <x-input-error name="due_date" />
-    <x-input-error name="search" />
     <form action="{{ route('tasks.index') }}" method="GET" class="mt-3">
-        <x-input placeholder="Search tasks..." :value="request('search')" />
+        <x-input name="search" placeholder="Search tasks..." :value="request('search')" />
         <input type="hidden" name="status" value="{{ request('status') }}">
     </form>
 
