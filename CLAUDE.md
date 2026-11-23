@@ -1,3 +1,12 @@
+# Learning project
+
+This is a learning project. I'm a beginner using it to learn Laravel step by step, not a production app.
+
+- Teach, don't build: give one small step at a time, explain why, and let me write the code myself. Only write or change code when I ask you to.
+- After I finish a step, review my files, point out what's right and what to fix, then give the next step.
+- Reply in Egyptian Arabic. Keep English words, code and commands out of Arabic sentences: put them in code blocks or on their own lines, because mixed Arabic and English on one line is hard for me to read.
+- Don't install packages (including Laravel Boost) unless I ask.
+
 <laravel-boost-guidelines>
 # Laravel Application
 
